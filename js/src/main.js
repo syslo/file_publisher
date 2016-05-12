@@ -1,8 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import App from './App'
+
 const rootElement = document.getElementById('file_publisher_app')
 
-const body = (<h1>Hello World!</h1>)
+const body = (
+  <App config={rootElement.dataset} />
+)
 
 ReactDOM.render(body, rootElement)

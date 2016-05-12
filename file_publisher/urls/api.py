@@ -16,7 +16,7 @@ urlpatterns = [
     url(
         r'^roots/$',
         NodeViewSet.as_view({'get': 'roots'}),
-        name='node_detail'
+        name='roots'
     ),
     url(
         r'^folders/$',

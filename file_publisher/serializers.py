@@ -33,7 +33,7 @@ class NodeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Node
         fields = (
-            'id', 'name', 'url', 'download_url', 'is_folder', 'is_file',
+            'path', 'name', 'url', 'download_url', 'is_folder', 'is_file',
         )
 
     def get_is_file(self, obj):
@@ -57,12 +57,11 @@ class NodeSerializer(serializers.ModelSerializer):
     revisions = RevisionSerializer(many=True, read_only=True)
 
     predecessors = serializers.SerializerMethodField()
-    path = serializers.SerializerMethodField()
 
     class Meta:
         model = Node
         fields = (
-            'id', 'name', 'kids', 'predecessors', 'path', 'revisions',
+            'path', 'name', 'kids', 'predecessors', 'revisions',
         )
 
     def get_folders(self, obj):
@@ -82,9 +81,6 @@ class NodeSerializer(serializers.ModelSerializer):
             obj.iterate_predecessors(),
             many=True, context=self.context,
         ).data
-
-    def get_path(self, obj):
-        return obj.path
 
 
 class InputFolderSerializer(serializers.Serializer):

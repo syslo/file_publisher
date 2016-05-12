@@ -1,12 +1,15 @@
 {% load staticfiles %}
 
 <div>
-  <div id='file_publisher_app'></div>
+  <div
+    id="file_publisher_app"
+    data-roots-url="{% url 'file_publisher_api:roots' %}"
+  ></div>
   {% block javascript %}
     {% if bundle_url %}
       <script src="{{ bundle_url }}"></script>
     {% else %}
-      <script src="{% static "file_publisher/app.js" %}"></script>
+      <script src="{% static 'file_publisher/app.js' %}"></script>
     {% endif %}
   {% endblock%}
 </div>
