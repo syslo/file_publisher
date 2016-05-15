@@ -1,5 +1,5 @@
 import React from 'react'
-import {Breadcrumb, DropdownButton, FormControl, MenuItem, SplitButton} from 'react-bootstrap'
+import {Breadcrumb, DropdownButton, FormControl, MenuItem} from 'react-bootstrap'
 
 export default class Toolbar extends React.Component {
 
@@ -22,9 +22,7 @@ export default class Toolbar extends React.Component {
     if (!node) {
       return []
     }
-    return node.predecessors.filter(
-      (n) => n.path.indexOf(this.props.state.root) === 0
-    ).reverse()
+    return node.predecessors.reverse()
   }
 
   render() {
@@ -33,42 +31,37 @@ export default class Toolbar extends React.Component {
     return (
       <div>
         <Breadcrumb>
-          {this.getBreadcrumbs().map((n, i) => {
-            const props = {
-              key: n.path,
-              onClick: () => this.props.actions.openFolder(n),
-              active: node.path === n.path,
-            }
-            if (i==0){
-              return this.renderFirstBreadcrumb(props, n)
-            } else {
-              return (<Breadcrumb.Item {...props}>{n.name}</Breadcrumb.Item>)
-            }
-          })}
+          {this.renderRootSelector()}
+          {this.getBreadcrumbs().map((n, i) => (
+            <Breadcrumb.Item
+              key={n.path}
+              onClick={() => this.props.actions.openFolder(n)}
+              active={node.path === n.path || n.path.indexOf(state.root) !== 0}
+            >
+              {n.path ?  n.name : 'root:'}
+            </Breadcrumb.Item>
+          ))}
         </Breadcrumb>
       </div>
     )
   }
 
-  renderFirstBreadcrumb(props, node){
+  renderRootSelector(){
     return (
-      <Breadcrumb.Item key={props.key} active>
-        <SplitButton
-          id="file-publisher-root-select"
-          title={node.path || '(root)'}
-          bsStyle="link"
-          onClick={props.onClick}
-        >
-          {(this.props.state.roots || []).map((n) => (
-            <MenuItem
-              key={n.path}
-              onClick={() => this.props.actions.setRoot(n)}
-            >
-              {n.path || '(root)'}
-            </MenuItem>
-          ))}
-        </SplitButton>
-      </Breadcrumb.Item>
+      <DropdownButton
+        id="file-publisher-root-select"
+        title=""
+        bsStyle="link"
+      >
+        {(this.props.state.roots || []).map((n) => (
+          <MenuItem
+            key={n.path}
+            onClick={() => this.props.actions.setRoot(n)}
+          >
+            {n.path || '(root)'}
+          </MenuItem>
+        ))}
+      </DropdownButton>
     )
   }
 }
