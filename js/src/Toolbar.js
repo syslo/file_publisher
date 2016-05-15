@@ -8,16 +8,23 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
+    const state = this.props.state
+    const node = (state.active && state.nodes[state.active.path]) || null
     return (
       <div>
         <select
-          value={this.props.state.root}
+          value={state.root}
           onChange={(e) => this.setRootPath(e.target.value)}
         >
-          {(this.props.state.roots || []).map((node) => (
-            <option key={node.path} value={node.path}>{node.path+'/'}</option>
+          {(state.roots || []).map((n) => (
+            <option key={n.path} value={n.path}>{n.path+'/'}</option>
           ))}
         </select>
+        {node && (<ul>
+          {node.predecessors.filter((n) => n.path.indexOf(state.root) === 0).reverse().map((n) => (
+            <li key={n.path}><a href='#' onClick={() => this.props.actions.openFolder(n)}>{n.name}</a></li>
+          ))}
+        </ul>)}
       </div>
     )
   }

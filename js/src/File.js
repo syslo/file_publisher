@@ -4,7 +4,7 @@ export default class Folder extends React.Component {
   render() {
     return (
       <div>
-        <p>File: {this.props.node.path}</p>
+        <h2>File: {this.props.node.name}</h2>
       </div>
     )
   }

@@ -43,6 +43,7 @@ export default class App extends React.Component {
     return (
       <Node
         node={nodes[active.path]}
+        actions={this.actions}
       />
     )
   }
