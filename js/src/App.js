@@ -1,6 +1,11 @@
 import React from 'react'
 
 import Toolbar from './Toolbar'
+import Folder from './Folder'
+import File from './File'
+import Loading from './Loading'
+import NoAccess from './NoAccess'
+
 import generate_actions from './actions'
 
 export default class App extends React.Component {
@@ -8,9 +13,10 @@ export default class App extends React.Component {
   componentWillMount() {
     this.actions = generate_actions(this.dispatch.bind(this), this.props.config)
     this.dispatch("Initial State", (state) => ({
-      roots: [],
+      roots: null,
+      nodes: {},
     }))
-    this.actions.fetchRoots()
+    this.actions.fetchRoots(true)
   }
 
   dispatch(msg, fn) {
@@ -18,8 +24,31 @@ export default class App extends React.Component {
     this.setState(fn)
   }
 
+  renderBody(props) {
+    const {roots, nodes, active} = this.state
+    if (!roots) {
+      // Roots not fetched yet
+      return (<Loading />)
+    }
+    if (roots.length === 0) {
+      // No roots fetched
+      return (<NoAccess />)
+    }
+    if (!(active && active.path in nodes)) {
+      // Current node not loaded yet
+      return (<Loading />)
+    }
+
+    const Node = active.asFolder ? Folder : File
+    return (
+      <Node
+        node={nodes[active.path]}
+      />
+    )
+  }
+
   render() {
-    let props = {
+    const props = {
       actions: this.actions,
       config: this.props.config,
       dispatch: this.dispatch.bind(this),
@@ -29,6 +58,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Toolbar {...props} />
+        {this.renderBody()}
       </div>
     )
   }
