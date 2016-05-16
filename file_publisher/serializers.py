@@ -1,7 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from rest_framework import serializers
 
 from .models import Node, Resource, Revision
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'username', 'first_name', 'last_name',
+        )
 
 
 class ResourceSerializer(serializers.ModelSerializer):
@@ -9,6 +18,7 @@ class ResourceSerializer(serializers.ModelSerializer):
         view_name='file_publisher_api:resource_download',
         read_only=True
     )
+    author = AuthorSerializer()
 
     class Meta:
         model = Resource
@@ -19,6 +29,7 @@ class ResourceSerializer(serializers.ModelSerializer):
 
 class RevisionSerializer(serializers.ModelSerializer):
     resource = ResourceSerializer(required=False)
+    author = AuthorSerializer()
 
     class Meta:
         model = Revision

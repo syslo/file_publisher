@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "cookies-js": "^1.2.2",
+    "copy-to-clipboard": "^3.0.0",
     "fetch": "^1.0.1",
+    "moment": "^2.13.0",
     "react": "^15.0.2",
     "react-bootstrap": "^0.29.4",
     "react-dom": "^15.0.2"
