@@ -63,7 +63,7 @@ class NodeListSerializer(serializers.ModelSerializer):
         ))
 
 
-class NodeSerializer(serializers.ModelSerializer):
+class NodeSerializer(NodeListSerializer):
     kids = NodeListSerializer(many=True, read_only=True)
     revisions = RevisionSerializer(many=True, read_only=True)
 
@@ -73,6 +73,7 @@ class NodeSerializer(serializers.ModelSerializer):
         model = Node
         fields = (
             'path', 'name', 'kids', 'predecessors', 'revisions',
+            'url', 'download_url', 'is_folder', 'is_file',
         )
 
     def get_folders(self, obj):

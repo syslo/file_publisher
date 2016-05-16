@@ -3,16 +3,19 @@ import {Button, ButtonToolbar, Glyphicon, Panel, Table} from 'react-bootstrap'
 
 import copy from 'copy-to-clipboard'
 
+import {dialogs} from './dialogs'
+
 export default class Folder extends React.Component {
 
   render() {
     const node = this.props.node
+    const actions = this.props.actions
     const shrink = {whiteSpace: "nowrap", width: "1px"}
 
     const header = (
       <div>
         <ButtonToolbar className="pull-right">
-          <Button onClick={() => {}} bsSize="xs">
+          <Button onClick={() => actions.showDialog(dialogs.newFolder.key)} bsSize="xs">
             <Glyphicon glyph="plus" />
             <Glyphicon glyph="folder-open" />
           </Button>

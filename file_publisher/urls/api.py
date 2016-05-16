@@ -21,6 +21,7 @@ urlpatterns = [
     url(
         r'^folders/$',
         FolderView.as_view(),
+        name='folders'
     ),
     url(
         r'^revisions/$',

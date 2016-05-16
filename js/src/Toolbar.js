@@ -22,7 +22,7 @@ export default class Toolbar extends React.Component {
     if (!node) {
       return []
     }
-    return node.predecessors.reverse()
+    return node.predecessors.slice().reverse()
   }
 
   render() {

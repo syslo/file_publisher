@@ -4,6 +4,7 @@
   <div
     id="file_publisher_app"
     data-roots-url="{% url 'file_publisher_api:roots' %}"
+    data-new-folder-url="{% url 'file_publisher_api:folders' %}"
   ></div>
   {% block javascript %}
     {% if bundle_url %}

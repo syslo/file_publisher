@@ -1,30 +1,34 @@
-export const resourceTypes = {
-  disabled: {
+export function objectify(list){
+  return list.reduce((res, x) => ({...res, [x.key]: x}), {})
+}
+
+const resourceTypesList = [
+  {
     key: 'disabled',
     value: 0,
     glyph: 'remove',
   },
-  file: {
+  {
     key: 'file',
     value: 1,
     glyph: 'paperclip',
   },
-  redirect: {
+  {
     key: 'redirect',
     value: 2,
     glyph: 'link'
   },
-}
+]
+
+export const resourceTypes = objectify(resourceTypesList)
 
 export function getResourceType(revision) {
   if (!revision.resource) {
     return resourceTypes.disabled
   }
-  const key = Object.keys(resourceTypes).find((key) => (
-    resourceTypes[key].value === revision.resource.type
-  ))
-  if (!key) {
+  const res = resourceTypesList.find((t) => (t.value === revision.resource.type))
+  if (!res) {
     return resourceTypes.disabled
   }
-  return resourceTypes[key]
+  return res
 }

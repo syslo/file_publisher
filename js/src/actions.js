@@ -55,6 +55,28 @@ export default (dispatch, config) => {
       actions.fetchNode(node)
     },
 
+    showDialog: (key) => {
+      dispatch('Show Dialog', dialogSetter(key, 'visible', true))
+    },
+
+    hideDialog: (key) => {
+      dispatch('Hide Dialog', dialogSetter(key, 'visible', false))
+    },
+
+    dialogDispatch: (key, value) => {
+      dispatch('Dialog Dispatch', dialogSetter(key, 'value', value))
+    },
+
+    newFolder: (path) => {
+      return request.postJson(
+        config.newFolderUrl, {path},
+      ).then(() => null)
+    },
+
   })
   return actions
 }
+
+const dialogSetter = (key, prop, value) => (state) => ({
+  ...state, dialogs: {...state.dialogs, [key]: {...state.dialogs[key], [prop]: value}}
+})

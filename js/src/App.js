@@ -8,11 +8,14 @@ import NoAccess from './NoAccess'
 
 import generate_actions from './actions'
 
+import {renderDialogs, getDialogsState} from './dialogs'
+
 export default class App extends React.Component {
 
   componentWillMount() {
     this.actions = generate_actions(this.dispatch.bind(this), this.props.config)
     this.dispatch("Initial State", (state) => ({
+      ...getDialogsState(),
       roots: null,
       nodes: {},
     }))
@@ -20,8 +23,12 @@ export default class App extends React.Component {
   }
 
   dispatch(msg, fn) {
-    console.log(`Dispatch: ${msg}`)
-    this.setState(fn)
+    this.setState((state) => {
+      console.log(`Dispatching: ${msg}`)
+      state = fn(state)
+      console.log(state)
+      return state
+    })
   }
 
   renderBody(props) {
@@ -58,6 +65,7 @@ export default class App extends React.Component {
 
     return (
       <div>
+        {renderDialogs(this.state, this.actions)}
         <Toolbar {...props} />
         {this.renderBody()}
       </div>
