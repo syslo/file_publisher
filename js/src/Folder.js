@@ -3,6 +3,7 @@ import {Button, ButtonToolbar, Glyphicon, Panel, Table} from 'react-bootstrap'
 
 import copy from 'copy-to-clipboard'
 
+import {resourceTypes} from './helpers'
 import {dialogs} from './dialogs'
 
 export default class Folder extends React.Component {
@@ -21,11 +22,11 @@ export default class Folder extends React.Component {
           </Button>
           <Button onClick={() => {}} bsSize="xs">
             <Glyphicon glyph="plus" />
-            <Glyphicon glyph="file" />
+            {resourceTypes.file.glyphicon}
           </Button>
           <Button onClick={() => actions.showDialog(dialogs.newRedirect.key)} bsSize="xs">
             <Glyphicon glyph="plus" />
-            <Glyphicon glyph="link" />
+            {resourceTypes.redirect.glyphicon}
           </Button>
         </ButtonToolbar>
         <span className="text-left-lg"><Glyphicon glyph="folder-open" />&nbsp;&nbsp;{node.name}</span>

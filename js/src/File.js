@@ -24,15 +24,16 @@ export default class File extends React.Component {
             <Glyphicon glyph="save" />
           </Button>
           <Button onClick={() => actions.showDialog(dialogs.newDeactivation.key)} bsSize="xs">
-            <Glyphicon glyph={resourceTypes.disabled.glyph} />
+            <Glyphicon glyph="arrow-right" />
+            {resourceTypes.disabled.glyphicon}
           </Button>
           <Button onClick={() => {}} bsSize="xs">
-            <Glyphicon glyph="plus" />
-            <Glyphicon glyph={resourceTypes.file.glyph} />
+            <Glyphicon glyph="arrow-right" />
+            {resourceTypes.file.glyphicon}
           </Button>
           <Button onClick={() => actions.showDialog(dialogs.newRedirect.key)} bsSize="xs">
-            <Glyphicon glyph="plus" />
-            <Glyphicon glyph={resourceTypes.redirect.glyph} />
+            <Glyphicon glyph="arrow-right" />
+            {resourceTypes.redirect.glyphicon}
           </Button>
         </ButtonToolbar>
         <span><Glyphicon glyph="file" />&nbsp;{node.name}</span>

@@ -53,7 +53,7 @@ export default class NewRevisionWrapper extends React.Component {
     let path = this.props.state.active.path
 
     return(
-      <FormGroup validationState={hasSlug && !slug && validator.test(slug) ? 'error' : null}>
+      <FormGroup validationState={hasSlug && slug && validator.test(slug) ? 'error' : null}>
         <ControlLabel>Path</ControlLabel>
         <InputGroup>
           {hasSlug && <InputGroup.Addon>{path}/</InputGroup.Addon>}

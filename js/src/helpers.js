@@ -1,3 +1,7 @@
+import React from 'react'
+import {Glyphicon} from 'react-bootstrap'
+
+
 export function objectify(list){
   return list.reduce((res, x) => ({...res, [x.key]: x}), {})
 }
@@ -11,7 +15,7 @@ const resourceTypesList = [
   {
     key: 'file',
     value: 1,
-    glyph: 'paperclip',
+    glyph: 'file',
   },
   {
     key: 'redirect',
@@ -20,7 +24,9 @@ const resourceTypesList = [
   },
 ]
 
-export const resourceTypes = objectify(resourceTypesList)
+export const resourceTypes = objectify(resourceTypesList.map(
+  (t) => ({...t, glyphicon: (<Glyphicon glyph={t.glyph} />)})
+))
 
 export function getResourceType(revision) {
   if (!revision.resource) {

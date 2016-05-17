@@ -33,6 +33,7 @@ export default (dispatch, config) => {
           return response.json()
         })
         .then((data) => {
+          data.revisions.reverse()
           dispatch('Node Loaded', (state) => ({
             ...state, nodes: {...state.nodes, [node.path]: data}
           }))
