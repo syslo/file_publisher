@@ -33,7 +33,7 @@ export default class NewRedirect extends React.Component {
           <ControlLabel>Name</ControlLabel>
           <FormControl
             type="text"
-            value={value.name}
+            value={value.name || ''}
             onChange={(e)=>this.setValue('name', e.target.value)}
           />
         </FormGroup>
@@ -41,7 +41,7 @@ export default class NewRedirect extends React.Component {
           <ControlLabel>Destination</ControlLabel>
           <FormControl
             type="text"
-            value={value.url}
+            value={value.url || ''}
             onChange={(e)=>this.setValue('url', e.target.value)}
           />
         </FormGroup>

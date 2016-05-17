@@ -60,7 +60,7 @@ export default class NewRevisionWrapper extends React.Component {
           <FormControl
             autoFocus
             type="text"
-            value={hasSlug ? slug : path}
+            value={(hasSlug ? slug : path) || ''}
             onChange={(e)=>this.setValue('slug', e.target.value)}
             disabled={!hasSlug}
           />
@@ -90,7 +90,7 @@ export default class NewRevisionWrapper extends React.Component {
               <ControlLabel>Comment</ControlLabel>
               <FormControl
                 componentClass="textarea"
-                value={this.props.value.comment}
+                value={this.props.value.comment || ''}
                 onChange={(e)=>this.setValue('comment', e.target.value)}
               />
             </FormGroup>
