@@ -26,3 +26,12 @@ export const postJson = (url, data) => fetch(url, {
   },
   body: JSON.stringify(data),
 })
+
+export const postForm = (url, data) => fetch(url, {
+  method: 'POST',
+  credentials: 'same-origin',
+  headers: {
+    ...postHeaders(),
+  },
+  body: data,
+})

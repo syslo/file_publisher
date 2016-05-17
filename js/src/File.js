@@ -27,7 +27,7 @@ export default class File extends React.Component {
             <Glyphicon glyph="arrow-right" />
             {resourceTypes.disabled.glyphicon}
           </Button>
-          <Button onClick={() => {}} bsSize="xs">
+          <Button onClick={() => actions.showDialog(dialogs.newFile.key)} bsSize="xs">
             <Glyphicon glyph="arrow-right" />
             {resourceTypes.file.glyphicon}
           </Button>

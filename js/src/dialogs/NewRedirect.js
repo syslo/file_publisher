@@ -6,7 +6,6 @@ import NewRevisionWrapper from './NewRevisionWrapper'
 export default class NewRedirect extends React.Component {
 
   getResource() {
-    console.log('juuu')
     return this.props.actions.newRedirect(
       this.props.value.name, this.props.value.url,
     )

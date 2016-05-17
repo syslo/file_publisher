@@ -20,7 +20,7 @@ export default class Folder extends React.Component {
             <Glyphicon glyph="plus" />
             <Glyphicon glyph="folder-open" />
           </Button>
-          <Button onClick={() => {}} bsSize="xs">
+          <Button onClick={() => actions.showDialog(dialogs.newFile.key)} bsSize="xs">
             <Glyphicon glyph="plus" />
             {resourceTypes.file.glyphicon}
           </Button>

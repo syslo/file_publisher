@@ -3,6 +3,7 @@ import React from 'react'
 import NewFolder from './NewFolder'
 
 import NewDeactivation from './NewDeactivation'
+import NewFile from './NewFile'
 import NewRedirect from './NewRedirect'
 
 import {objectify} from '../helpers'
@@ -15,6 +16,10 @@ const dialogsList = [
   {
     key: 'newDeactivation',
     Component: NewDeactivation,
+  },
+  {
+    key: 'newFile',
+    Component: NewFile,
   },
   {
     key: 'newRedirect',

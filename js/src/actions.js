@@ -85,8 +85,17 @@ export default (dispatch, config) => {
       )
     },
 
+    newFile: (file) => {
+      let data = new FormData()
+      data.append('file', file)
+      return request.postForm(
+        config.newFileResourceUrl, data
+      ).then(
+        (response) => response.json()
+      )
+    },
+
     newRevision: (path, resource, comment) => {
-      console.log(comment)
       return request.postJson(
         config.newRevisionUrl,
         {
