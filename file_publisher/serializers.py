@@ -1,7 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from rest_framework import serializers
 
 from .models import Node, Resource, Revision
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'username', 'first_name', 'last_name',
+        )
 
 
 class ResourceSerializer(serializers.ModelSerializer):
@@ -9,6 +18,7 @@ class ResourceSerializer(serializers.ModelSerializer):
         view_name='file_publisher_api:resource_download',
         read_only=True
     )
+    author = AuthorSerializer()
 
     class Meta:
         model = Resource
@@ -19,6 +29,7 @@ class ResourceSerializer(serializers.ModelSerializer):
 
 class RevisionSerializer(serializers.ModelSerializer):
     resource = ResourceSerializer(required=False)
+    author = AuthorSerializer()
 
     class Meta:
         model = Revision
@@ -33,7 +44,7 @@ class NodeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Node
         fields = (
-            'id', 'name', 'url', 'download_url', 'is_folder', 'is_file',
+            'path', 'name', 'url', 'download_url', 'is_folder', 'is_file',
         )
 
     def get_is_file(self, obj):
@@ -52,17 +63,17 @@ class NodeListSerializer(serializers.ModelSerializer):
         ))
 
 
-class NodeSerializer(serializers.ModelSerializer):
+class NodeSerializer(NodeListSerializer):
     kids = NodeListSerializer(many=True, read_only=True)
     revisions = RevisionSerializer(many=True, read_only=True)
 
     predecessors = serializers.SerializerMethodField()
-    path = serializers.SerializerMethodField()
 
     class Meta:
         model = Node
         fields = (
-            'id', 'name', 'kids', 'predecessors', 'path', 'revisions',
+            'path', 'name', 'kids', 'predecessors', 'revisions',
+            'url', 'download_url', 'is_folder', 'is_file',
         )
 
     def get_folders(self, obj):
@@ -83,9 +94,6 @@ class NodeSerializer(serializers.ModelSerializer):
             many=True, context=self.context,
         ).data
 
-    def get_path(self, obj):
-        return obj.path
-
 
 class InputFolderSerializer(serializers.Serializer):
     path = serializers.CharField()
@@ -96,6 +104,7 @@ class InputRevisionSerializer(serializers.Serializer):
     resource = serializers.PrimaryKeyRelatedField(
         queryset=Resource.objects.all(), allow_null=True, required=False,
     )
+    comment = serializers.CharField(allow_blank=True)
 
 
 class InputFileSerializer(serializers.Serializer):

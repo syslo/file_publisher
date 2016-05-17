@@ -39,7 +39,7 @@ class FileResourceView(views.APIView):
 
     serializer_class = InputFileSerializer
 
-    def put(self, request):
+    def post(self, request):
 
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -70,7 +70,7 @@ class RedirectResourceView(views.APIView):
 
     serializer_class = InputRedirectSerializer
 
-    def put(self, request):
+    def post(self, request):
 
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)

@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<div>
+  <div
+    id="file_publisher_app"
+    data-roots-url="{% url 'file_publisher_api:roots' %}"
+    data-new-folder-url="{% url 'file_publisher_api:folders' %}"
+    data-new-file-resource-url="{% url 'file_publisher_api:resource_add_file' %}"
+    data-new-redirect-resource-url="{% url 'file_publisher_api:resource_add_redirect' %}"
+    data-new-revision-url="{% url 'file_publisher_api:revisions' %}"
+  ></div>
+  {% block javascript %}
+    {% if bundle_url %}
+      <script src="{{ bundle_url }}"></script>
+    {% else %}
+      <script src="{% static 'file_publisher/app.js' %}"></script>
+    {% endif %}
+  {% endblock%}
+</div>
