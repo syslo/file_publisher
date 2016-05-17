@@ -11,21 +11,22 @@ urlpatterns = [
     url(
         r'^node/(?P<path>.*)$',
         NodeViewSet.as_view({'get': 'by_path'}),
-        name='node_detail'
+        name='node_detail',
     ),
     url(
         r'^roots/$',
         NodeViewSet.as_view({'get': 'roots'}),
-        name='roots'
+        name='roots',
     ),
     url(
         r'^folders/$',
         FolderView.as_view(),
-        name='folders'
+        name='folders',
     ),
     url(
         r'^revisions/$',
         RevisionView.as_view(),
+        name='revisions',
     ),
 
     # Resources
@@ -40,10 +41,12 @@ urlpatterns = [
     ),
     url(
         r'^resources/file/$',
-        FileResourceView.as_view()
+        FileResourceView.as_view(),
+        name='resource_add_file',
     ),
     url(
         r'^resources/redirect/$',
-        RedirectResourceView.as_view()
+        RedirectResourceView.as_view(),
+        name='resource_add_redirect',
     ),
 ]

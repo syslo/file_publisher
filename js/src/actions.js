@@ -70,7 +70,32 @@ export default (dispatch, config) => {
     newFolder: (path) => {
       return request.postJson(
         config.newFolderUrl, {path},
-      ).then(() => null)
+      ).then(
+        (response) => response.json()
+      )
+    },
+
+    newRedirect: (name, url) => {
+      return request.postJson(
+        config.newRedirectResourceUrl,
+        {name: name, destination: url},
+      ).then(
+        (response) => response.json()
+      )
+    },
+
+    newRevision: (path, resource, comment) => {
+      console.log(comment)
+      return request.postJson(
+        config.newRevisionUrl,
+        {
+          path: path,
+          resource: resource && resource.id,
+          comment: comment || ''
+        },
+      ).then(
+        (response) => response.json()
+      )
     },
 
   })

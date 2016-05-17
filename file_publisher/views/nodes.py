@@ -98,6 +98,7 @@ class RevisionView(views.APIView):
             node=node,
             author=request.user if request.user.is_active else None,
             resource=serializer.validated_data.get('resource', None),
+            comment=serializer.validated_data.get('comment', '')
         )
         revision.save()
 

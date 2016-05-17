@@ -23,6 +23,10 @@ export default class Folder extends React.Component {
             <Glyphicon glyph="plus" />
             <Glyphicon glyph="file" />
           </Button>
+          <Button onClick={() => actions.showDialog(dialogs.newRedirect.key)} bsSize="xs">
+            <Glyphicon glyph="plus" />
+            <Glyphicon glyph="link" />
+          </Button>
         </ButtonToolbar>
         <span className="text-left-lg"><Glyphicon glyph="folder-open" />&nbsp;&nbsp;{node.name}</span>
       </div>

@@ -7,12 +7,14 @@ import copy from 'copy-to-clipboard'
 import moment from 'moment'
 
 import {getResourceType, resourceTypes} from './helpers'
+import {dialogs} from './dialogs'
 
-export default class Folder extends React.Component {
+export default class File extends React.Component {
 
   render() {
     const node = this.props.node
     const downloadUrl = node.predecessors[0].download_url
+    const actions = this.props.actions
     const shrink = {whiteSpace: "nowrap", width: "1px"}
 
     const header = (
@@ -21,14 +23,14 @@ export default class Folder extends React.Component {
           <Button onClick={() => window.open(downloadUrl)} bsSize="xs">
             <Glyphicon glyph="save" />
           </Button>
-          <Button onClick={() => {}} bsSize="xs">
+          <Button onClick={() => actions.showDialog(dialogs.newDeactivation.key)} bsSize="xs">
             <Glyphicon glyph={resourceTypes.disabled.glyph} />
           </Button>
           <Button onClick={() => {}} bsSize="xs">
             <Glyphicon glyph="plus" />
             <Glyphicon glyph={resourceTypes.file.glyph} />
           </Button>
-          <Button onClick={() => {}} bsSize="xs">
+          <Button onClick={() => actions.showDialog(dialogs.newRedirect.key)} bsSize="xs">
             <Glyphicon glyph="plus" />
             <Glyphicon glyph={resourceTypes.redirect.glyph} />
           </Button>
@@ -79,8 +81,9 @@ export default class Folder extends React.Component {
             )
 
             return (
-              <ListGroupItem key={rev.id} header={subHeader}>
+              <ListGroupItem key={rev.id}>
                 <Grid fluid>
+                  <Row><Col sm={12}>{subHeader}</Col></Row>
                   { type.key === 'redirect' && (
                     <Row><Col sm={12}>
                       <Glyphicon glyph="globe" />&nbsp;

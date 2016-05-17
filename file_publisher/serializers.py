@@ -104,6 +104,7 @@ class InputRevisionSerializer(serializers.Serializer):
     resource = serializers.PrimaryKeyRelatedField(
         queryset=Resource.objects.all(), allow_null=True, required=False,
     )
+    comment = serializers.CharField(allow_blank=True)
 
 
 class InputFileSerializer(serializers.Serializer):
