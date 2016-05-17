@@ -70,9 +70,9 @@ export default class File extends React.Component {
                       <Glyphicon glyph="save" />
                     </Button>
                   )}
-                  <Button onClick={() => {}} bsSize="xs">
+                  {/*<Button onClick={() => {}} bsSize="xs">
                     <Glyphicon glyph="refresh" />
-                  </Button>
+                  </Button>*/}
                 </ButtonToolbar>
                 <strong>
                   <Glyphicon glyph={type.glyph} />&nbsp;
